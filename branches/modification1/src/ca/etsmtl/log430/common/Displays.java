@@ -151,7 +151,7 @@ public class Displays {
 			{	
 				displayProject(project);
 				lineCheck(1);
-				System.out.println("");
+				
 			}
 		}
 		while(!projetNul);
