@@ -68,13 +68,15 @@ public class AssignResourceToProject extends Communication
 
 				myProject = menu.pickProject(CommonData.theListOfProjects.getListOfProjects());
 
-				if (myProject != null)	{	
-					/*
-					 * If the selected project and resource exist, then complete
-					 * the assignment process.
-					 */
-					myProject.assignResource(myResource);
-					myResource.assignProject(myProject);
+				boolean assign = false;
+				if (myProject != null) {
+					if (myResource.isAvailableForProject(myProject)) {
+						assign = true;
+					}
+
+					if (assign)
+						myProject.assignResource(myResource);
+					
 				} else {
 					System.out.println("\n\n *** Project not found ***");
 				} 

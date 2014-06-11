@@ -35,6 +35,12 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 		super(25);
 		vectorIndex = 0;
 	}
+	
+	@Override
+	public boolean add(E e) {
+		// TODO Auto-generated method stub
+		return super.add(e);
+	}
 
 	/**
 	 * Uses the Vector.add method to append the Object to the end of the list.
@@ -66,7 +72,7 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 			listItem = super.get(vectorIndex);
 			vectorIndex++;
 			return (listItem);
-		} catch (ArrayIndexOutOfBoundsException error) {
+		} catch (IndexOutOfBoundsException error) {
 			return ((Object) null);
 		}
 	}
