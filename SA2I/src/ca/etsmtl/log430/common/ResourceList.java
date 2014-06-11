@@ -30,7 +30,12 @@ import ca.etsmtl.log430.common.Resource;
  * **************************************************************************
  */
 
-public class ResourceList extends List {
+public class ResourceList extends List<Resource> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8433259020355117060L;
 
 	/**
 	 * Adds a new resource to the list. All the issues of casting are taken care
@@ -38,8 +43,8 @@ public class ResourceList extends List {
 	 * 
 	 * @param resource
 	 */
-	public void addResource(Resource resource) {
-		appendItemToList((Object) resource);
+	public boolean addResource(Resource resource) {
+		return appendItemToList(resource);
 	}
 
 	/**
