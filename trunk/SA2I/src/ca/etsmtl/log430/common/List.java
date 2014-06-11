@@ -1,6 +1,6 @@
 package ca.etsmtl.log430.common;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Provides the methods that allow the caller to open an existing file and read
@@ -22,15 +22,17 @@ import java.util.Vector;
  * ***************************************************************************
  */
 
-public class List {
-	/** The actual list */
-	private Vector<Object> itemList;
+public class List<E> extends ArrayList<E> implements java.util.List<E> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6474594881805628419L;
 
 	/** Used to index elements in the list */
 	private int vectorIndex;
 
 	public List() {
-		itemList = new Vector<Object>(25, 5);
+		super(25);
 		vectorIndex = 0;
 	}
 
@@ -41,8 +43,8 @@ public class List {
 	 * 
 	 * @param item
 	 */
-	public void appendItemToList(Object item) {
-		itemList.add(item);
+	public <T extends E> boolean appendItemToList(T item) {
+		return super.add(item);
 	}
 
 	/**
@@ -61,7 +63,7 @@ public class List {
 		 * and return a null object
 		 */
 		try {
-			listItem = itemList.get(vectorIndex);
+			listItem = super.get(vectorIndex);
 			vectorIndex++;
 			return (listItem);
 		} catch (ArrayIndexOutOfBoundsException error) {
