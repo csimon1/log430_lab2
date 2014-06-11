@@ -29,10 +29,10 @@ import ca.etsmtl.log430.common.ResourceReader;
 
 public class CommonData {
 	/** The file that contains the information for projects. */
-	private String defaultProjectFile = "res/projects.txt";
+	private String defaultProjectFile = "projects.txt";
 
 	/** The file that contains the information for resources. */
-	private String defaultResourceFile = "res/resources.txt";
+	private String defaultResourceFile = "resources.txt";
 	
 	/** Variable used to determine if initialization has been realized. */
 	private static boolean initialized = false;
@@ -52,7 +52,7 @@ public class CommonData {
 	public CommonData() {
 		if (!initialized) {
 			theListOfProjects = new ProjectReader(defaultProjectFile);
-			theListOfResources = new ResourceReader(defaultResourceFile);
+			theListOfResources = new ResourceReader(defaultResourceFile, defaultProjectFile, theListOfProjects);
 			systemComponents = new ComponentList();
 			initialized = true;
 		} // if

@@ -82,7 +82,10 @@ public class Executive extends Communication {
 			case '5':
 				signalReceivers("AssignResourceToProject");
 				break;
-
+				
+			case '6':
+				signalReceivers("AssignResourceToProject");
+				break;
 			case 'X':
 			case 'x':
 				done = true;

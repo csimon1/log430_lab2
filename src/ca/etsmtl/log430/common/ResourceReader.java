@@ -3,6 +3,7 @@ package ca.etsmtl.log430.common;
 import ca.etsmtl.log430.common.Resource;
 import ca.etsmtl.log430.common.ResourceList;
 
+
 /**
  * Reads from the InputFile and instantiates the Resource objects in the system.
  * It is assumed that the InputFile is in the local directory, contains the
@@ -56,6 +57,7 @@ public class ResourceReader extends LineOfTextFileReader {
 	 * The list of drivers.
 	 */
 	private ResourceList listOfResources = new ResourceList();
+	private ProjectList listOfProjects;
 
 	public ResourceReader() {
 
@@ -63,9 +65,11 @@ public class ResourceReader extends LineOfTextFileReader {
 
 	} // Constructor #1
 
-	public ResourceReader(String inputFile) {
-
-		listOfResources = readResourceListFromFile(inputFile);
+	public ResourceReader(String inputResourceFile, String inputProjectFile, ProjectReader makerOfListOfProjects)
+	{
+        
+		listOfProjects = makerOfListOfProjects.getProjectList(inputProjectFile);
+		listOfResources = readResourceListFromFile(inputResourceFile);
 
 	} // Constructor #2
 
@@ -202,7 +206,18 @@ public class ResourceReader extends LineOfTextFileReader {
 				// This is where the projects are added to the list of projects
 				// previously assigned to this resource. Note that there are
 				// no details other than the project ID.
-				resource.getPreviouslyAssignedProjectList().addProject(new Project(token));
+				
+				Project project = listOfProjects.findProjectByID(token);
+				
+				if (project == null) {
+					project = new Project(token);
+				}
+				else
+				{
+					resource.getPreviouslyAssignedProjectList().addProject(project);
+				}
+				
+				project.assignResource(resource);
 				frontIndex = backIndex + 1;
 				break;
 

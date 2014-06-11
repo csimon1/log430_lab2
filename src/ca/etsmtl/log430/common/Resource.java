@@ -56,7 +56,7 @@ public class Resource {
 	/**
 	 *  List of projects the resource is already allocated to
 	 */
-	private ProjectList alreadyAssignedProjectList = new ProjectList();
+	private ProjectList previouslyAssignedProjectList = new ProjectList();
 
 	/**
 	 *  List of projects assigned to the resource in this session
@@ -107,11 +107,11 @@ public class Resource {
 	}
 
 	public void setPreviouslyAssignedProjectList(ProjectList projectList) {
-		this.alreadyAssignedProjectList = projectList;
+		this.previouslyAssignedProjectList = projectList;
 	}
 
 	public ProjectList getPreviouslyAssignedProjectList() {
-		return alreadyAssignedProjectList;
+		return previouslyAssignedProjectList;
 	}
 
 	public void setProjectsAssigned(ProjectList projectList) {
