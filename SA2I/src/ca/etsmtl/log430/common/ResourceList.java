@@ -150,5 +150,27 @@ public class ResourceList extends List<Resource> {
 		} // if
 
 	} // findResourceByID
+	
+	@Override
+	public boolean contains(Object o) 
+	{
+		if(!(o instanceof Resource))
+		{
+			return false;
+		}
+		else
+		{
+			Resource resourceToCompare = (Resource)o;
+			// TODO Auto-generated method stub
+			for (Resource r : this) 
+			{
+				if (r.getID().equalsIgnoreCase(resourceToCompare.getID()))
+				{
+					return true;
+				} // if
+			}
+		}
+		return false;
+	}
 
 } // ResourceList

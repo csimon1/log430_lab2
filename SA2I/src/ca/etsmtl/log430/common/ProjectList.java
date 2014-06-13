@@ -1,6 +1,5 @@
 package ca.etsmtl.log430.common;
 
-
 /**
  * This class is used by various other classes that need to keep a list of
  * projects. It extends the List class which provides the basic functionality for
@@ -121,6 +120,28 @@ public class ProjectList extends List<Project> {
 
 		} // while
 		return(returnValue);
+	}
+	
+	@Override
+	public boolean contains(Object o) 
+	{
+		if(!(o instanceof Project))
+		{
+			return false;
+		}
+		else
+		{
+			Project projectToCompare = (Project)o;
+			// TODO Auto-generated method stub
+			for (Project p : this) 
+			{
+				if (p.getID().equalsIgnoreCase(projectToCompare.getID()))
+				{
+					return true;
+				} // if
+			}
+		}
+		return false;
 	}
 	
 } // ProjectList

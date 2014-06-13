@@ -16,6 +16,7 @@ import ca.etsmtl.log430.common.Menus;
  * 	    if user choice = 3, signal "ListProjectsAssignedToResourceComponent"
  * 	    if user choice = 4, signal "ListResourcesAssignedToProjectComponent"
  * 	    if user choice = 5, signal "AssignResourceToProject" 
+ * 		if user choice = 7, signal "ListRolesAssignedToProjectComponent"
  * 	    if user choice = x, you are done
  * 	end while
  * </pre>
@@ -58,6 +59,7 @@ public class Executive extends Communication {
 		addToReceiverList("ListProjectsAssignedToResourceComponent");
 		addToReceiverList("ListResourcesAssignedToProjectComponent");
 		addToReceiverList("AssignResourceToProject");
+		addToReceiverList("ListRolesAssignedToProjectComponent");
 
 		while (!done) {
 			userChoice = menu.mainMenu();
@@ -82,7 +84,10 @@ public class Executive extends Communication {
 			case '5':
 				signalReceivers("AssignResourceToProject");
 				break;
-
+			case '7':
+				signalReceivers("ListRolesAssignedToProjectComponent");
+				break;
+				
 			case 'X':
 			case 'x':
 				done = true;

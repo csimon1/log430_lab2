@@ -1,5 +1,8 @@
 package ca.etsmtl.log430.common;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * This class displays various types of information on projects and resources
@@ -70,7 +73,7 @@ public class Displays {
 		System.out.println(resource.getID() + " "
 				+ resource.getFirstName() + " "
 				+ resource.getLastName() + " "
-				+ resource.getRole());
+				+ resource.getRole().getName());
 	}
 
 	/**
@@ -239,5 +242,140 @@ public class Displays {
 		} // while
 
 	}
+	
+	public void displayRoles(ResourceList resources, Project pickedProject) 
+	{
+		// Added The list of resources in parameter, because every time
+		// we create a project object, the list of resources assigned to this project are empty.
+		// there is no way to load the resource files and then add roles assigned to this project . 
+		Map<Role, Integer> previousRoles = new HashMap<>();
+		Map<Role, Integer> currentRoles = new HashMap<>();
+		
+		for(Resource r : resources)
+		{
+			Role role = r.getRole();
+			
+			// check if the current project id exist in the previously project list 
+			if(!r.getPreviouslyAssignedProjectList().isEmpty())
+			{
+				ProjectList previousProjects = r.getPreviouslyAssignedProjectList();
+				
+				// Iterates throughout each previous project to check if the current project exist.
+				for(Project previousP : previousProjects)
+				{
+					if(previousP.getID().equalsIgnoreCase(pickedProject.getID()))
+					{
+						Integer roleCount = previousRoles.get(role);
+						
+						if(roleCount != null)
+						{
+							previousRoles.put(role, roleCount++);
+						}
+						else
+						{
+							previousRoles.put(role, 1);
+						}
+					}
+				}
+			}
+			if(!r.getProjectsAssigned().isEmpty())
+			{
+				ProjectList currentProjects = r.getProjectsAssigned();
+				
+				// Iterates throughout each project in the current session to check if the picked project exist in the list.
+				for(Project currentP : currentProjects)
+				{
+					if(currentP.getID().equalsIgnoreCase(pickedProject.getID()))
+					{
+						Integer roleCount = currentRoles.get(role);
+						
+						if(roleCount != null)
+						{
+							currentRoles.put(role, roleCount++);
+						}
+						else
+						{
+							currentRoles.put(role, 1);
+						}
+					}
+				}
+			}
+		}// end for
+		
+		// Now Displaying resources.
+		
+		displaySeparator();
 
+		System.out.println("Roles assigned to Project : " + pickedProject.getID()
+				+ " " + pickedProject.getProjectName());
+
+		lineCheck(1);
+
+		displaySubSeparator();
+
+		if (previousRoles.isEmpty()) 
+		{
+			System.out
+					.println("The project does not have ressources already assigned!");
+			lineCheck(1);
+		}
+		else 
+		{
+			System.out.println("Roles already assigned :");
+			
+			lineCheck(1);
+
+			for (Entry<Role, Integer> role : previousRoles.entrySet()) 
+			{
+				System.out.println(role.getKey().getName() + " -> "	+ role.getValue());
+				lineCheck(1);
+			}
+
+			lineCheck(1);
+		}
+
+		displaySubSeparator();
+
+		if (currentRoles.isEmpty()) 
+		{
+			System.out.println("No resources have been assigned for this current session!");
+			lineCheck(1);
+		}
+		else 
+		{
+			System.out.println("\nRoles currently assigned :");
+
+			lineCheck(1);
+
+			for (Entry<Role, Integer> role : currentRoles.entrySet()) 
+			{
+				System.out.println(role.getKey().getName() + " -> " + role.getValue());
+				lineCheck(1);
+			}
+
+			System.out.println("\n");
+			lineCheck(1);
+		}
+
+		displaySubSeparator();
+
+		System.out.println("Total roles assigned : "	+ (previousRoles.size() + currentRoles.size()));
+
+		lineCheck(3);
+
+		displaySeparator();
+	}
+
+	private void displaySeparator() 
+	{
+		lineCheck(1);
+		System.out.println("\n===========================================================\n");
+		lineCheck(1);
+	}
+
+	private void displaySubSeparator() 
+	{
+		System.out.println("\t---------------------------------------------------");
+		lineCheck(1);
+	}
 } // Display

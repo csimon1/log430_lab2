@@ -49,6 +49,9 @@ public class SystemInitialize {
 
 		Executive executiveComponent = new Executive(new Integer(105),
 				"ExecutiveComponent");
+//		new ListRolesAssignedToProject
+		new ListRolesAssignedToProject(new Integer(107),
+				"ListRolesAssignedToProjectComponent");
 
 		// Start the executive
 		executiveComponent.execute();

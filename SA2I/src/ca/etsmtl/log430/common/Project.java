@@ -1,5 +1,9 @@
 package ca.etsmtl.log430.common;
 
+import java.util.Calendar;
+import java.util.Date;
+
+
 
 /** This class defines the Project object for the system.
 * 
@@ -29,7 +33,7 @@ package ca.etsmtl.log430.common;
 * ***************************************************************************
 */
 
-public class Project {
+public class Project implements Identiable{
 
 	/**
 	 * Project ID
@@ -42,19 +46,14 @@ public class Project {
 	private String name;
 
 	/**
-	 * Project start date.
+	 * project period
 	 */
-	private String startDate;
-
-	/**
-	 * Project end date.
-	 */
-	private String endDate;
+	private Periode projectPeriode;
 
 	/**
 	 * Project priority
 	 */
-	private String priority;
+	private Priority priority;
 
 	/**
 	 * List of resources assigned to the project
@@ -66,7 +65,15 @@ public class Project {
 	}
 
 	public Project(String id) {
+		
+		resourcesAssigned = new ResourceList();
+
 		this.setID(id);
+		
+		Date today = Calendar.getInstance().getTime();
+		
+		this.projectPeriode = new Periode(today,today);
+
 	}
 
 	/**
@@ -74,8 +81,13 @@ public class Project {
 	 * 
 	 * @param resource
 	 */
-	public void assignResource(Resource resource) {
-		resourcesAssigned.addResource(resource);
+	public boolean assignResource(Resource resource) {
+		if(!this.resourcesAssigned.contains(resource)){
+			resource.assignProject(this);
+			return resourcesAssigned.addResource(resource);
+		}
+		
+		return false;
 	}
 
 	public void setID(String projectID) {
@@ -94,27 +106,27 @@ public class Project {
 		return name;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setStartDate(Date startDate) {
+		this.projectPeriode = new Periode(startDate, this.projectPeriode.getEndDate());
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public Date getStartDate() {
+		return this.projectPeriode.getStartDate();
 	}
 
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setEndDate(Date endDate) {
+		this.projectPeriode = new Periode(this.projectPeriode.getStartDate(),endDate);
 	}
 
-	public String getEndDate() {
-		return endDate;
+	public Date getEndDate() {
+		return this.projectPeriode.getEndDate();
 	}
 
-	public String getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
 
-	public void setPriority(String priority) {
+	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 
@@ -124,6 +136,10 @@ public class Project {
 
 	public ResourceList getResourcesAssigned() {
 		return resourcesAssigned;
+	}
+	
+	public Periode getPeriode() {
+		return new Periode(this.projectPeriode);
 	}
 
 } // Project class
