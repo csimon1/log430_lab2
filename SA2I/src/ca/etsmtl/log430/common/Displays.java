@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.common;
 
+import java.text.SimpleDateFormat;
+
 
 /**
  * This class displays various types of information on projects and resources
@@ -81,10 +83,13 @@ public class Displays {
 	 * @param project
 	 */
 	public void displayProject(Project project) {
+		
+		SimpleDateFormat dForm = new SimpleDateFormat("yyyy-MM-dd");
+		
 		System.out.println(project.getID() + " "
 				+ project.getProjectName() + " "
-				+ project.getStartDate() + " "
-				+ project.getEndDate() + " "
+				+ dForm.format(project.getStartDate()) + " "
+				+ dForm.format(project.getEndDate()) + " "
 				+ project.getPriority());
 	}
 

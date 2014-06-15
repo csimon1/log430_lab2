@@ -2,6 +2,7 @@ package ca.etsmtl.log430.lab2;
 
 import java.util.Observable;
 
+import ca.etsmtl.log430.common.Displays;
 import ca.etsmtl.log430.common.Menus;
 import ca.etsmtl.log430.common.Project;
 import ca.etsmtl.log430.common.Resource;
@@ -48,6 +49,7 @@ public class AssignResourceToProject extends Communication
 		Menus menu = new Menus();
 		Resource myResource = new Resource();
 		Project myProject = new Project();
+		Displays display = new Displays();
 
 		if (registrationNumber.compareTo((Integer)notificationNumber) == 0) {
 			addToReceiverList("ListResourcesComponent");
@@ -68,13 +70,22 @@ public class AssignResourceToProject extends Communication
 
 				myProject = menu.pickProject(CommonData.theListOfProjects.getListOfProjects());
 
-				if (myProject != null)	{	
-					/*
-					 * If the selected project and resource exist, then complete
-					 * the assignment process.
-					 */
-					myProject.assignResource(myResource);
-					myResource.assignProject(myProject);
+				
+				
+				boolean assign = false;
+				if (myProject != null) {
+					if (myResource.isAvailableForProject(myProject)) {
+						assign = true;
+					}
+					else{
+						display.displayProjectsAssignedToResource(myResource);
+						
+						assign = menu.pickConfirm("the ressource will be overallocated. Continue?");
+					}
+
+					if (assign)
+						myProject.assignResource(myResource);
+					
 				} else {
 					System.out.println("\n\n *** Project not found ***");
 				} 
