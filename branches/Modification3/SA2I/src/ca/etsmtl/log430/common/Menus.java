@@ -115,5 +115,20 @@ public class Menus {
 		return (project);
 
 	} // pickProject
+	
+	
+	public boolean pickConfirm(String message) {
+
+		Termio terminal = new Termio();
+		boolean userChoice;
+
+		System.out.print("\n" + message);
+		System.out.print("\nEnter y or n >> ");
+		userChoice = terminal.keyboardReadYesNo();
+
+		return userChoice;
+
+	}
+	
 
 } // Menus

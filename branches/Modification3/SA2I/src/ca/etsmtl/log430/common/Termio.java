@@ -63,6 +63,21 @@ public class Termio {
 		}
 		return charItem;
 	}
+	
+
+	public boolean keyboardReadYesNo() {
+		
+		char userChoice = this.keyboardReadChar();
+		
+		if("y".equalsIgnoreCase(""+userChoice)){
+			return true;
+		}else if("n".equalsIgnoreCase(""+userChoice)){
+			return false;			
+		}
+		
+		return false;
+		
+	}
 
 	/**
 	 * This method accepts a string and determines if it represents a number. If
@@ -142,4 +157,5 @@ public class Termio {
 		}
 		return integerItem.intValue();
 	}
+
 }
