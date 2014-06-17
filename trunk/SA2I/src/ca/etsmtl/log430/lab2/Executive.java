@@ -59,7 +59,7 @@ public class Executive extends Communication {
 		addToReceiverList("ListProjectsAssignedToResourceComponent");
 		addToReceiverList("ListResourcesAssignedToProjectComponent");
 		addToReceiverList("AssignResourceToProject");
-		addToReceiverList("ListRolesAssignedToProjectComponent");
+		addToReceiverList("ListProjectsPreviouslyAssignedComponent");
 
 		while (!done) {
 			userChoice = menu.mainMenu();
@@ -88,6 +88,9 @@ public class Executive extends Communication {
 				signalReceivers("ListRolesAssignedToProjectComponent");
 				break;
 				
+			case '6':
+				signalReceivers("ListProjectsPreviouslyAssignedComponent");
+				break;
 			case 'X':
 			case 'x':
 				done = true;

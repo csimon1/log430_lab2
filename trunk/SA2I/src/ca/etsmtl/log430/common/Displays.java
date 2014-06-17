@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.common;
 
+import ca.etsmtl.log430.common.Project;
+import ca.etsmtl.log430.common.Resource;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -135,6 +137,35 @@ public class Displays {
 
 	}
 
+	
+	public void displayProjectsPreviouslyAssignedToResource(Resource resource) {
+
+		System.out.println("\nProjects previously assigned to : "
+				+ resource.getFirstName() + " " + resource.getLastName() + " "
+				+ resource.getID());
+
+		lineCheck(2);
+        resource.getPreviouslyAssignedProjectList().goToFrontOfList();
+        boolean projetNul = false;
+		do
+		{
+			Project project = resource.getPreviouslyAssignedProjectList().getNextProject();
+			if(project == null)
+			{
+				projetNul = true;
+			}
+			else
+			{	
+				displayProject(project);
+				lineCheck(1);
+				
+			}
+		}
+		while(!projetNul);
+		
+		
+	}
+	
 	/**
 	 * Lists the projects currently assigned to a resource during this session.
 	 * 
