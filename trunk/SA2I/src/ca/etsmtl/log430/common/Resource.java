@@ -34,7 +34,7 @@ import java.util.Date;
 
  ****************************************************************************/
 
-public class Resource {
+public class Resource implements Identiable{
 
 	public static final int MAX_WORK_CHARGE = 100;
 	
@@ -56,7 +56,8 @@ public class Resource {
 	/**
 	 * Resource role 
 	 */
-	private String role;
+	private Role role;
+	//private String role;
 
 	/**
 	 *  List of projects the resource is already allocated to
@@ -118,13 +119,20 @@ public class Resource {
 		return id;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
+	/*
+	public void setRole(String role) {
+		this.role = role;
+	}*/
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
+	/*public String getRole() {
+		return role;
+	}*/
 
 	public void setPreviouslyAssignedProjectList(ProjectList projectList) {
 		this.alreadyAssignedProjectList = projectList;

@@ -1,10 +1,9 @@
 package ca.etsmtl.log430.common;
 
-
 /**
  * This class is used by various other classes that need to keep a list of
- * projects. It extends the List class which provides the basic functionality for
- * storage and retrieval of the Project object from the list.
+ * projects. It extends the List class which provides the basic functionality
+ * for storage and retrieval of the Project object from the list.
  * 
  * @author A.J. Lattanze, CMU
  * @version 1.6, 2013-Oct-06
@@ -31,96 +30,122 @@ package ca.etsmtl.log430.common;
 
 public class ProjectList extends List<Project> {
 
-	public ProjectList() {
-		super();
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6080762566511416707L;
 
-	/**
-	 * @param project
-	 *            New project to be added to the list. All the issues of casting
-	 *            are taken care of within this class.
-	 */
-	public boolean addProject(Project project) {
-		return appendItemToList(project);
-	}
+    public ProjectList() {
+        super();
+    }
 
-	/**
-	 * @return The project pointed at the current position pointed to by the
-	 *         internal list pointer of the internal list. Subsequent calls will
-	 *         return the next Project object in the list. A null object is
-	 *         returned if list is empty or the end of list has been reached.
-	 */
-	public Project getNextProject() {
-		return (Project) getItemFromList();
-	}
+    /**
+     * @param project
+     *            New project to be added to the list. All the issues of casting
+     *            are taken care of within this class.
+     */
+    public boolean addProject(Project project) {
+        return appendItemToList(project);
+    }
 
-	/**
-	 * This method assumes that all projects have different identification
-	 * numbers.
-	 * 
-	 * @param project
-	 * @return A Project instance if found in the list based on specified
-	 *         criteria, null otherwise.
-	 */
-	public boolean findProject(Project project) {
+    /**
+     * @return The project pointed at the current position pointed to by the
+     *         internal list pointer of the internal list. Subsequent calls will
+     *         return the next Project object in the list. A null object is
+     *         returned if list is empty or the end of list has been reached.
+     */
+    public Project getNextProject() {
+        return (Project) getItemFromList();
+    }
 
-		Project currentObject;
-		boolean done = false;
-		boolean result = false;
+    /**
+     * This method assumes that all projects have different identification
+     * numbers.
+     * 
+     * @param project
+     * @return A Project instance if found in the list based on specified
+     *         criteria, null otherwise.
+     */
+    public boolean findProject(Project project) {
 
-		goToFrontOfList();
+        Project currentObject;
+        boolean done = false;
+        boolean result = false;
 
-		while (!done) {
+        goToFrontOfList();
 
-			currentObject = getNextProject();
+        while (!done) {
 
-			if (currentObject == null) {
+            currentObject = getNextProject();
 
-				done = true;
+            if (currentObject == null) {
 
-			} else {
-				if (project.getID().compareToIgnoreCase(
-						currentObject.getID()) == 0) {
+                done = true;
 
-					result = true;
+            } else {
+                if (project.getID().compareToIgnoreCase(currentObject.getID()) == 0) {
 
+                    result = true;
+
+                } // if
+
+            } // if
+
+        } // while
+
+        return (result);
+
+    }
+
+    public Project findProjectByID(String id) {
+
+        Project currentObject;
+        Project returnValue = null;
+        boolean done = false;
+
+        goToFrontOfList();
+
+        while (!done) {
+
+            currentObject = getNextProject();
+
+            if (currentObject == null) {
+
+                done = true;
+
+            } else {
+                if (id.compareToIgnoreCase(currentObject.getID()) == 0) {
+                    returnValue = currentObject;
+                    done = true;
+
+                } // if
+
+            } // if
+
+        } // while
+        return (returnValue);
+    }
+
+	@Override
+	public boolean contains(Object o) 
+	{
+		if(!(o instanceof Project))
+		{
+			return false;
+		}
+		else
+		{
+			Project projectToCompare = (Project)o;
+			// TODO Auto-generated method stub
+			for (Project p : this) 
+			{
+				if (p.getID().equalsIgnoreCase(projectToCompare.getID()))
+				{
+					return true;
 				} // if
-
-			} // if
-
-		} // while
-
-		return (result);
-
-	}
-
-	public Project findProjectByID(String id) {
-
-		Project currentObject;
-		Project returnValue = null;
-		boolean done = false;
-
-		goToFrontOfList();
-
-		while (!done) {
-
-			currentObject = getNextProject();
-
-			if (currentObject == null) {
-
-				done = true;
-
-			} else {
-				if (id.compareToIgnoreCase(currentObject.getID()) == 0) {
-					returnValue = currentObject;
-					done = true;
-
-				} // if
-
-			} // if
-
-		} // while
-		return(returnValue);
+			}
+		}
+		return false;
 	}
 	
 } // ProjectList
