@@ -52,7 +52,7 @@ public class CommonData {
 	public CommonData() {
 		if (!initialized) {
 			theListOfProjects = new ProjectReader(defaultProjectFile);
-			theListOfResources = new ResourceReader(defaultResourceFile);
+			theListOfResources = new ResourceReader(defaultResourceFile, defaultProjectFile, theListOfProjects);
 			systemComponents = new ComponentList();
 			initialized = true;
 		} // if
