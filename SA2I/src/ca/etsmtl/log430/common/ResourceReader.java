@@ -193,7 +193,8 @@ public class ResourceReader extends LineOfTextFileReader {
 				break;
 
 			case 3: // Resource role (see this file's header)
-				resource.setRole(token);
+				//resource.setRole(token);
+				resource.setRole(new Role(token));
 				frontIndex = backIndex + 1;
 				tokenCount++;
 				break;

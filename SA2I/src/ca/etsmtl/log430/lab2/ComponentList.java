@@ -21,7 +21,7 @@ import ca.etsmtl.log430.common.List;
  * ***************************************************************************
  */
 
-public class ComponentList extends List {
+public class ComponentList extends List<Communication> {
 
 	public ComponentList() {
 		super();
@@ -34,7 +34,7 @@ public class ComponentList extends List {
 	 * @param component
 	 */
 	public void addComponent(Communication component) {
-		appendItemToList((Object) component);
+		appendItemToList(component);
 	}
 
 	/**
@@ -103,4 +103,5 @@ public class ComponentList extends List {
 			return (null);
 		}
 	}
+
 }

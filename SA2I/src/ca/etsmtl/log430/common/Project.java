@@ -33,7 +33,7 @@ import java.util.Date;
 * ***************************************************************************
 */
 
-public class Project {
+public class Project implements Identiable{
 
 	/**
 	 * Project ID
