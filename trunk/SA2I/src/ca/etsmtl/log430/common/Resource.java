@@ -214,7 +214,8 @@ public class Resource implements Identiable{
 	public boolean isAvailableForProject(Project project) {
 		
 		if(project != null) {
-			for (Project p : this.getProjectsAssigned()) {
+			for (Project p : this.getAllProjectAssigned()) {
+				
 				if(p.getPeriode().contains(project.getStartDate())){
 					if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
 						return false;

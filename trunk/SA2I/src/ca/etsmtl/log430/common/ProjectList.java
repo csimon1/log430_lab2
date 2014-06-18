@@ -38,6 +38,11 @@ public class ProjectList extends List<Project> {
     public ProjectList() {
         super();
     }
+    
+    private ProjectList(ProjectList pList) {
+        super();
+        super.addAll(pList);
+    }
 
     /**
      * @param project
@@ -146,6 +151,11 @@ public class ProjectList extends List<Project> {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public Object clone() {
+		return new ProjectList(this);
 	}
 	
 } // ProjectList
